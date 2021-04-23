@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.confia.springboot.service.tsr.beans.ICatParamExeBancos;
 import com.confia.springboot.service.tsr.models.CatParamExeBancos;
 import com.confia.springboot.service.tsr.service.ICatParamExBancosService;
 import com.confia.springboot.service.tsr.utils.Mensaje;
@@ -63,10 +64,10 @@ public class CatParamExBancosController {
 	}
 	
 	@GetMapping("/find-by-banck/{bancoID}")
-	public List<CatParamExeBancos> findByBanck(@PathVariable Integer bancoID) {
+	public List<ICatParamExeBancos> findByBanck(@PathVariable Integer bancoID) {
 		
 		
-			return (List<CatParamExeBancos>) pebService.findByBanck(bancoID);
+			return (List<ICatParamExeBancos>) pebService.findByBanck(bancoID);
 		
 	}
 	

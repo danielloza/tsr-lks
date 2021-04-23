@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.confia.springboot.service.tsr.beans.ICatParamExeBancos;
 import com.confia.springboot.service.tsr.dao.ICatParamExBancosDAO;
 import com.confia.springboot.service.tsr.models.CatParamExeBancos;
 
@@ -44,7 +45,7 @@ public class CatParamExBancosServiceImpl implements ICatParamExBancosService{
 	}
 
 	@Override
-	public List<CatParamExeBancos> findByBanck(Integer banckID) {
+	public List<ICatParamExeBancos> findByBanck(Integer banckID) {
 		
 		return pebDao.findByBanck(banckID);
 	}
