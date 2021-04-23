@@ -44,14 +44,11 @@ public class CatParamExeBancos implements Serializable{
 	@Column(name = "MontoMax")
 	private double montoMax;
 	
-	@JsonIgnoreProperties({"saldo","cuenta", "activo", "hibernateLazyInitializer", "handler"})
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CuentaBancoID", unique = true)
-	private CatCuentasBancos cuentaBanco;
+	@Column(name = "CuentaBancoID", unique = true)
+	private Integer cuentaBancoID;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BancoID")
-	private CatBancos catalogoBanco;
+	private Integer bancoID;
 	
 	@NotNull(message = "No puede ser Nulo el campo Activo")
 	@Column(name = "Activo")
@@ -100,16 +97,20 @@ public class CatParamExeBancos implements Serializable{
 		this.montoMax = montoMax;
 	}
 
-	public CatCuentasBancos getCuentaBanco() {
-		return cuentaBanco;
+	public Integer getCuentaBanco() {
+		return cuentaBancoID;
 	}
 
-	public void setCuentaBanco(CatCuentasBancos cuentaBanco) {
-		this.cuentaBanco = cuentaBanco;
+	public void setCuentaBancoID(Integer cuentaBancoID) {
+		this.cuentaBancoID = cuentaBancoID;
 	}
 
-	public void setCatalogoBanco(CatBancos catalogoBanco) {
-		this.catalogoBanco = catalogoBanco;
+	public Integer getBancoID() {
+		return bancoID;
+	}
+	
+	public void setBancoID(Integer bancoID) {
+		this.bancoID = bancoID;
 	}
 
 	public boolean isActivo() {

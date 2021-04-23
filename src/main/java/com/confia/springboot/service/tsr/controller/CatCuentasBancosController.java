@@ -1,6 +1,5 @@
 package com.confia.springboot.service.tsr.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,50 +21,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.confia.springboot.service.tsr.models.CatBancos;
-import com.confia.springboot.service.tsr.service.ICatBancosService;
+import com.confia.springboot.service.tsr.models.CatCuentasBancos;
+import com.confia.springboot.service.tsr.service.ICatCuentasBancosService;
 import com.confia.springboot.service.tsr.utils.Mensaje;
 
 @CrossOrigin(origins = { "http://localhost:4200", "*" })
 @RestController
-@RequestMapping("/api/bancos")
-public class CatBancosController {
-
+@RequestMapping("/api/cuentas-bancos")
+public class CatCuentasBancosController {
+	
 	@Autowired
-	private ICatBancosService bancosService;
-	
+	private ICatCuentasBancosService cuentasBancosService;
+
 	@GetMapping("/find-all")
-	public List<CatBancos> findAllBancos() {
-		return bancosService.findAllBancos();
+	public List<CatCuentasBancos> findAllBancos() {
+		return cuentasBancosService.findAllAccount();
 	}
 	
-	@GetMapping("/find-by-bank/{id}")
-	public ResponseEntity<?> findByID(@PathVariable Integer id) {
-		
-		CatBancos peb = null;
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			peb = bancosService.findById(id);
-		} catch(DataAccessException e) {
-			response.put("mensaje", Mensaje.MSJ_SELECT_ERROR);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-		if(peb == null) {
-			response.put("mensaje", "El Banco ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity<CatBancos>(peb, HttpStatus.OK);
+	@SuppressWarnings("unchecked")
+	@GetMapping("/find-by-banck/{bancoID}")
+	public List<CatCuentasBancos> findByBanck(@PathVariable Integer bancoID) {
+		return (List<CatCuentasBancos>) cuentasBancosService.findByBanck(bancoID);
 	}
 	
+	@GetMapping("/find-by-account/{cuentaID}")
+	public CatCuentasBancos findByAccount(@PathVariable Integer cuentaID) {
+		return cuentasBancosService.findByAccount(cuentaID);
+	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<?> createBanck(@Valid @RequestBody CatBancos cBancos, BindingResult result) {
+	public ResponseEntity<?> createAccountBanck(@Valid @RequestBody CatCuentasBancos cuentasBancos, BindingResult result) {
 		
-		CatBancos cBancosNew = null;
+		CatCuentasBancos cuentasBancosNew = null;
 		
 		Map<String, Object> response = new HashMap<>();
 		
@@ -81,7 +68,7 @@ public class CatBancosController {
 		}
 		
 		try {
-			cBancosNew = bancosService.addBancos(cBancos);
+			cuentasBancosNew = cuentasBancosService.addAcount(cuentasBancos);
 		} catch(DataAccessException e) {
 			response.put("mensaje", Mensaje.MSJ_INSERT_ERROR);
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -89,17 +76,16 @@ public class CatBancosController {
 		}
 		
 		response.put("mensaje", Mensaje.MSJ_INSERT_EXITO);
-		response.put("banco", cBancosNew);
+		response.put("banco", cuentasBancosNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody CatBancos catBancos, BindingResult result, @PathVariable int id) {
+	public ResponseEntity<?> update(@Valid @RequestBody CatCuentasBancos cuentaBancos, BindingResult result, @PathVariable int id) {
 
-		CatBancos bancoActual = bancosService.findById(id);
+		CatCuentasBancos cuentaBancoActual = cuentasBancosService.findByAccount(id);
 
-		CatBancos bancoUpdated = null;
+		CatCuentasBancos cuentaBancoUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -116,26 +102,26 @@ public class CatBancosController {
 		}
 		/////// Block Validation Model //////
 		
-		if (bancoActual == null) {
-			response.put("mensaje", "Error: no se pudo editar, el Banco ID: "
+		if (cuentaBancoActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, la Cuenta del Banco ID: "
 					.concat("" + id + "".concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
 
-			bancoActual.setNombre(catBancos.getNombre());
-			bancoActual.setActivo(catBancos.isActivo());
-			bancoUpdated = bancosService.update(bancoActual);	
+			cuentaBancoActual.setNumeroCuenta(cuentaBancos.getNumeroCuenta());
+			cuentaBancoActual.setActivo(cuentaBancos.isActivo());
+			cuentaBancoUpdated = cuentasBancosService.addAcount(cuentaBancoActual);	
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el banco en la base de datos");
+			response.put("mensaje", "Error al actualizar la cuenta del banco en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El banco ha sido actualizada con éxito!");
-		response.put("banco", bancoUpdated);
+		response.put("mensaje", "La cuenta del banco ha sido actualizada con éxito!");
+		response.put("cuentaBanco", cuentaBancoUpdated);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}

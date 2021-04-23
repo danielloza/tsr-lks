@@ -32,12 +32,6 @@ public class CatBancos implements Serializable{
 	@Column(name = "Activo")
 	private boolean activo;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "banco", cascade = CascadeType.ALL)
-	private List<CatCuentasBancos> catCuentasBancos;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoBanco", cascade = CascadeType.ALL)
-	private List<CatParamExeBancos> paramBancos;
-	
 	public Integer getBancoID() {
 		return bancoID;
 	}
@@ -61,23 +55,6 @@ public class CatBancos implements Serializable{
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
-	public List<CatParamExeBancos> getParamBancos() {
-		return paramBancos;
-	}
-
-	public void setParamBancos(List<CatParamExeBancos> paramBancos) {
-		this.paramBancos = paramBancos;
-	}
-
-	public List<CatCuentasBancos> getCatCuentasBancos() {
-		return catCuentasBancos;
-	}
-
-	public void setCatCuentasBancos(List<CatCuentasBancos> catCuentasBancos) {
-		this.catCuentasBancos = catCuentasBancos;
-	}
-
 
 	private static final long serialVersionUID = 1L;
 

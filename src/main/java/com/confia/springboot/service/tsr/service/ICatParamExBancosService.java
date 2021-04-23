@@ -9,6 +9,7 @@ public interface ICatParamExBancosService {
 	
 	public List<CatParamExeBancos> findAllParam();
 	public CatParamExeBancos findByID(Integer id);
+	public List<CatParamExeBancos> findByBanck(Integer banckID);
 	public CatParamExeBancos addParam(CatParamExeBancos peb);
 	public void delete(Integer id);
 	

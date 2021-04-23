@@ -43,6 +43,12 @@ public class CatParamExBancosServiceImpl implements ICatParamExBancosService{
 		
 	}
 
+	@Override
+	public List<CatParamExeBancos> findByBanck(Integer banckID) {
+		
+		return pebDao.findByBanck(banckID);
+	}
+
 
 
 }

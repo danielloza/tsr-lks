@@ -26,19 +26,11 @@ public class CatCuentasBancos implements Serializable {
 	@Column(name = "NumeroCuenta", unique = true)
 	private String numeroCuenta;
 	
-	@Column(name="Saldo")
-	private double saldo;
+	@Column(name="CuentaID", unique = true)
+	private Integer cuentaID;
 	
-	@JsonIgnoreProperties({"tipoCuenta", "naturaleza", "rubro", "empresa", "monedaSat", 
-		"acumulaCuenta","activa","fechaRegistro", "nombre",  "hibernateLazyInitializer", "handler"})
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="CuentaID", unique = true)
-	private CatCtaCont cuentaContable;
-	
-	@JsonIgnoreProperties({"catCuentasBancos","hibernateLazyInitializer", "handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BancoID")
-	private CatBancos banco;
+	@Column(name = "BancoID")
+	private Integer bancoID;
 	
 	@Column(name="Activo")
 	private boolean activo;
@@ -60,25 +52,21 @@ public class CatCuentasBancos implements Serializable {
 	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
 	}
-
-	public double getSaldo() {
-		return saldo;
+	
+	public Integer getCuentaID() {
+		return cuentaID;
+	}
+	
+	public void setCuentaID(Integer cuentaID) {
+		this.cuentaID = cuentaID;
+	}
+	
+	public Integer getBancoID() {
+		return bancoID;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
-
-	public CatCtaCont getCuentaContable() {
-		return cuentaContable;
-	}
-
-	public void setCuentaContable(CatCtaCont cuentaContable) {
-		this.cuentaContable = cuentaContable;
-	}
-
-	public void setBanco(CatBancos banco) {
-		this.banco = banco;
+	public void setBanco(Integer bancoID) {
+		this.bancoID = bancoID;
 	}
 
 	public boolean isActivo() {

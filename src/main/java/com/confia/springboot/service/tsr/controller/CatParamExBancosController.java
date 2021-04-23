@@ -62,6 +62,13 @@ public class CatParamExBancosController {
 		return new ResponseEntity<CatParamExeBancos>(peb, HttpStatus.OK);
 	}
 	
+	@GetMapping("/find-by-banck/{bancoID}")
+	public List<CatParamExeBancos> findByBanck(@PathVariable Integer bancoID) {
+		
+		
+			return (List<CatParamExeBancos>) pebService.findByBanck(bancoID);
+		
+	}
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createParam(@Valid @RequestBody CatParamExeBancos peb, BindingResult result) {

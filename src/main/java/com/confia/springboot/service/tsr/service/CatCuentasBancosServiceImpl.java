@@ -1,5 +1,7 @@
 package com.confia.springboot.service.tsr.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,24 @@ public class CatCuentasBancosServiceImpl implements ICatCuentasBancosService{
 	public CatCuentasBancos addAcount(CatCuentasBancos ccBancos) {
 		
 		return ccBancosDao.save(ccBancos);
+	}
+
+	@Override
+	public List<CatCuentasBancos> findAllAccount() {
+		
+		return ccBancosDao.findAll();
+	}
+
+	@Override
+	public CatCuentasBancos findByAccount(Integer accountID) {
+		
+		return ccBancosDao.findById(accountID).orElse(null);
+	}
+
+	@Override
+	public List<CatCuentasBancos> findByBanck(Integer bancoID) {
+		
+		return (List<CatCuentasBancos>) ccBancosDao.findByBanck(bancoID);
 	}
 
 }
