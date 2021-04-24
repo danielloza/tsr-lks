@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.confia.springboot.service.tsr.beans.ICatParamExeBancos;
+import com.confia.springboot.service.tsr.beans.IcatCuentasContables;
 import com.confia.springboot.service.tsr.models.CatCuentasBancos;
 import com.confia.springboot.service.tsr.service.ICatCuentasBancosService;
 import com.confia.springboot.service.tsr.utils.Mensaje;
@@ -34,7 +36,7 @@ public class CatCuentasBancosController {
 	private ICatCuentasBancosService cuentasBancosService;
 
 	@GetMapping("/find-all")
-	public List<CatCuentasBancos> findAllBancos() {
+	public List<IcatCuentasContables> findAllBancos() {
 		return cuentasBancosService.findAllAccount();
 	}
 	

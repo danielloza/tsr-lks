@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.confia.springboot.service.tsr.beans.ICatParamExeBancos;
+import com.confia.springboot.service.tsr.beans.IcatCuentasContables;
 import com.confia.springboot.service.tsr.dao.ICatCuentasBancosDAO;
 import com.confia.springboot.service.tsr.models.CatCuentasBancos;
 
@@ -23,9 +25,9 @@ public class CatCuentasBancosServiceImpl implements ICatCuentasBancosService{
 	}
 
 	@Override
-	public List<CatCuentasBancos> findAllAccount() {
+	public List<IcatCuentasContables> findAllAccount() {
 		
-		return ccBancosDao.findAll();
+		return ccBancosDao.findAllAccount();
 	}
 
 	@Override
